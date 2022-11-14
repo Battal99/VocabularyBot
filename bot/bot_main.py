@@ -77,7 +77,8 @@ async def translate_ru_en(message: types.Message, state: FSMContext):
         await message.answer(text=result)
         await message.answer(text="Чтобы перевести еще раз нажмите /tr_ru_en,"
                                   " чтобы перевести английское слово /tr_en_ru,"
-                                  " чтобы посмотреть словарь /show_words")
+                                  " чтобы посмотреть словарь /show_words,"
+                                  " получить любое слово /get_word")
         await state.finish()
     else:
         await message.answer(text="Введите русское слово,"

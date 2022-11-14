@@ -47,6 +47,7 @@ def insert_users(user_id, user_name, username):
         try:
             cursor.execute('Insert into `users` (user_id,'
                            f'user_name, username) values ("{user_id}","{user_name}","{username}");')
+            logger.info("Insert successfully")
             conn.commit()
             return True
         except OperationalError as err:

@@ -16,13 +16,6 @@ def db_connect():
 conn = db_connect()
 cursor = conn.cursor()
 
-# def execute_query(query, fetch=False):
-#     cursor = conn.cursor()
-#     cursor.execute(query)
-#     if fetch:
-#         return cursor.fetchall()
-
-
 create_vocabulary = """
         CREATE TABLE IF NOT EXISTS `vocabulary`(
             `id` INTEGER PRIMARY KEY NOT NULL,
