@@ -12,8 +12,10 @@ from database.methods import (
     insert_word_in_vocabulary,
     delete_data_in_vocabulary_table,
     get_words_in_vocabulary,
-    get_word_in_vocabulary, insert_users, get_users,
+    get_word_in_vocabulary,
+    get_users,
 )
+from event import process_after_register_views
 
 bot = Bot(token=BOT_API_KEY)
 
@@ -33,10 +35,7 @@ async def main(message: types.Message):
                         "чтобы удалить все из словаря /clear_dict, "
                         "чтобы посмотреть словарь /show_words, "
                         "получить любое слово /get_word", parse_mode='html')
-    insert_users(message.chat.id, message.chat.username, message.chat.first_name)
-    # for i in range(7):
-    #     await asyncio.sleep(5)
-    #     await bot.send_message(message.chat.id, "word")
+    process_after_register_views(message.chat.id, message.chat.username, message.chat.first_name)
 
 
 @dp.message_handler(commands="tr_en_ru")

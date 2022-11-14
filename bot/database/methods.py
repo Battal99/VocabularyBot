@@ -3,7 +3,8 @@ from sqlite3 import OperationalError
 
 from config import logger
 from database.sqlite import cursor, conn
-from random import randint
+
+from event import after_start_views
 
 
 def insert_word_in_vocabulary(word, translate) -> bool:
@@ -39,14 +40,20 @@ def get_word_in_vocabulary():
     return word, translate
 
 
+@after_start_views
 def insert_users(user_id, user_name, username):
-    try:
-        cursor.execute('Insert into `users` (user_id,'
-                       f'user_name, username) values ("{user_id}","{user_name}","{username}");')
-        conn.commit()
-    except OperationalError as err:
-        logger.warning(f"Ошибка занесения в БД {err}")
-        return False
+    info = cursor.execute('SELECT * FROM `users` WHERE user_id=?', (user_id,))
+    if info.fetchone() is None:
+        try:
+            cursor.execute('Insert into `users` (user_id,'
+                           f'user_name, username) values ("{user_id}","{user_name}","{username}");')
+            conn.commit()
+            return True
+        except OperationalError as err:
+            logger.warning(f"Ошибка занесения в БД {err}")
+    else:
+        logger.info(f"Пользователь есть в БД")
+    return False
 
 
 def get_users():
