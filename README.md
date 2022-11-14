@@ -7,5 +7,5 @@
 * После этого бот отправит сообщение, содержащее токен вашего бота (Use this token to access the HTTP API)
 Данные token (токен) и url_tlgrm (https://t.me/{bot_username}) нужно добавить себе в конфиг.
 
-В качествe API для доступа к словарю используется https://developers.lingvolive.com/
-БД - SQLite
+* В качествe API для доступа к словарю используется https://developers.lingvolive.com/
+* БД - SQLite
