@@ -31,4 +31,15 @@ create_vocabulary = """
          );
         """
 
+create_users = """
+        CREATE TABLE IF NOT EXISTS `users`(
+            `id` INTEGER PRIMARY KEY NOT NULL,
+            `user_id` Varchar(150) not null,
+            `user_name` Varchar(150) not null,
+            `username` Varchar(150) not null
+         );
+        """
+
 Vocabulary_table = cursor.execute(create_vocabulary)
+Users_table = cursor.execute(create_users)
+

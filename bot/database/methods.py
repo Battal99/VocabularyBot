@@ -1,7 +1,9 @@
+import random
 from sqlite3 import OperationalError
 
 from config import logger
 from database.sqlite import cursor, conn
+from random import randint
 
 
 def insert_word_in_vocabulary(word, translate) -> bool:
@@ -26,6 +28,30 @@ def get_words_in_vocabulary():
         word_dict[word[1]] = word[2]
     return word_dict
 
-# for i in range(7):
-#     await asyncio.sleep(60*60*24)
-#     await bot.send_message(user_id, MSG.format(user_name))
+
+def get_word_in_vocabulary():
+    word_dict = {}
+    words = cursor.execute("select * from `vocabulary`;").fetchall()
+    for word in words:
+        word_dict[word[1]] = word[2]
+    word, translate = random.choice(list(word_dict.items()))
+
+    return word, translate
+
+
+def insert_users(user_id, user_name, username):
+    try:
+        cursor.execute('Insert into `users` (user_id,'
+                       f'user_name, username) values ("{user_id}","{user_name}","{username}");')
+        conn.commit()
+    except OperationalError as err:
+        logger.warning(f"Ошибка занесения в БД {err}")
+        return False
+
+
+def get_users():
+    users_list = []
+    users = cursor.execute('SELECT * FROM `users`;').fetchall()
+    for user in users:
+        users_list.append(user[1])
+    return users_list
